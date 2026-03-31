@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="overlay"></div>
+<div class="marquee-bar"><div class="mtrack" id="mtrack"></div></div>
+
+<!-- ══ LANDING ══ -->
+<section id="landing">
+  <div class="land-photo" id="landPhoto"></div>
+  <div class="land-strip"></div>
+  <div class="land-inner">
+    <div class="land-topbar">
+      <div class="land-logo">Diary</div>
+      <div class="land-meta">Tokyo Lee · Core 2<br>Project 02 · ©2026</div>
+    </div>
+    <div class="land-mid">
+      <h1 class="land-title">DI<span class="acc">ARY</span></h1>
+      <p class="land-tag">20 songs · select your mood · music follows</p>
+    </div>
+    <div class="land-bottom">
+      <button class="enter-btn" onclick="goMoods()"><span>How are you feeling? →</span></button>
+      <div class="land-rpm">Side A<br>33⅓ rpm</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MOOD SELECTOR ══ -->
+<section id="moods">
+  <div class="mood-topbar">
+    <div class="mood-logo">Diary</div>
+    <button class="mood-back" onclick="goLanding()">← back</button>
+  </div>
+  <h2 class="mood-q">HOW ARE YOU FEELING?</h2>
+  <div class="mood-grid">
+    <button class="mbtn" onclick="pickMood('nostalgic','#ff3c00','#ff6640')">
+      <span>nostalgic<em>something is missing</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('tender','#ff00aa','#ff44cc')">
+      <span>tender<em>soft and open</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('electric','#00e5ff','#33eeff')">
+      <span>electric<em>buzzing with something</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('golden','#b4ff00','#ccff44')">
+      <span>golden<em>warm and alive</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('aching','#ff3c00','#ff5522')">
+      <span>aching<em>it still hurts</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('unraveling','#aa00ff','#cc44ff')">
+      <span>unraveling<em>falling apart, gently</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('restless','#ff6600','#ff8833')">
+      <span>restless<em>can't sit still</em></span>
+    </button>
+    <button class="mbtn" onclick="pickMood('quiet','#00ffaa','#33ffbb')">
+      <span>quiet<em>need stillness</em></span>
+    </button>
+  </div>
+</section>
+
+<!-- ══ PLAYER ══ -->
+<section id="player">
+  <div class="p-wrap">
+    <div class="p-left">
+      <div class="p-colorbar" id="pColorbar"></div>
+      <div class="pl-top">
+        <span class="p-season-label" id="pSeason">WINTER — SIDE A</span>
+        <div class="p-num" id="pNum">01</div>
+        <div class="p-title" id="pTitle">TEN</div>
+        <div class="p-artist" id="pArtist">Fred again.. & Marea</div>
+        <div class="p-mood-pill" id="pMoodPill">electric</div>
+      </div>
+      <p class="p-hint" id="pHint">Something that matches the buzz.</p>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <button class="p-skip" onclick="skipSong()">→ play another for this mood</button>
+        <a class="yt-btn" id="ytBtn" href="#" target="_blank" rel="noopener">
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><path d="M13.7 1.56A1.76 1.76 0 0 0 12.46.3C11.37 0 7 0 7 0S2.63 0 1.54.3A1.76 1.76 0 0 0 .3 1.56 18.44 18.44 0 0 0 0 5a18.44 18.44 0 0 0 .3 3.44A1.76 1.76 0 0 0 1.54 9.7C2.63 10 7 10 7 10s4.37 0 5.46-.3a1.76 1.76 0 0 0 1.24-1.26A18.44 18.44 0 0 0 14 5a18.44 18.44 0 0 0-.3-3.44ZM5.6 7.14V2.86L9.25 5Z"/></svg>
+          <span>listen on youtube</span>
+        </a>
+      </div>
+      <div class="p-nav">
+        <button class="pnbtn" onclick="goMoods()">← mood</button>
+        <div style="display:flex;align-items:center;gap:0.8rem">
+          <button class="play-ring" id="playRing" onclick="togglePlay()">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="var(--ink)" id="playIco"><polygon points="2,1 12,6.5 2,12"/></svg>
+          </button>
+          <span class="p-count" id="pCount">1 / ∞</span>
+        </div>
+        <button class="pnbtn" onclick="nextSong()">next →</button>
+      </div>
+    </div>
+    <div class="p-right">
+      <div class="p-right-photo" id="pRightPhoto"></div>
+      <div class="p-right-tint" id="pRightTint"></div>
+      <div class="vinyl-outer">
+        <div class="vinyl-disc" id="vDisc">
+          <canvas id="vCanvas" width="480" height="480"></canvas>
+        </div>
+        <div class="vinyl-label">
+          <div class="vl-title" id="vlTitle">TEN<br>FRED AGAIN</div>
+          <div class="vl-num" id="vlNum">A1</div>
+          <div class="vl-hole"></div>
+        </div>
+        <svg class="needle-wrap" id="needle" viewBox="0 0 72 72" fill="none">
+          <line x1="14" y1="14" x2="58" y2="62" stroke="rgba(245,242,235,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="5" fill="none" stroke="rgba(245,242,235,0.4)" stroke-width="1.2"/>
+          <circle cx="58" cy="62" r="2.5" fill="rgba(245,242,235,0.7)"/>
+        </svg>
+      </div>
+      <div class="waveform paused" id="waveform">
+        <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
+        <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSING ══ -->
+<section id="closing">
+  <div class="cl-big">THE DIARY<br><em>ENDS.</em></div>
+  <p class="cl-sub">Every feeling you named was real. Every song played something true.</p>
+  <button class="re-btn" onclick="restart()">Begin Again →</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
